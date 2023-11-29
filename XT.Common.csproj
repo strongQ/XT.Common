@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Copyright>hihifun</Copyright>
+    <Description>1、包含SignalR客户端
+2、包含一些扩展方法
+3、包含Http，使用如下
+ public BaseApiService(IHttpClientFactory httpClientFactory, IApiConfig apiConfig)
+        {
+            _clientFactory = httpClientFactory;
+            _apiConfig = apiConfig;
+        }
+        public HttpClient CreateHttpClient()
+        {
+            var client = _clientFactory.CreateClient();
+            if (!string.IsNullOrEmpty(_apiConfig.Token))
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _apiConfig.Token);
+            client.BaseAddress = new Uri(_apiConfig.RemoteApiUrl);
+            return client;
+        }</Description>
+    <Version>1.1.0</Version>
+    <Authors>hihifun</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Datas\" />
+  </ItemGroup>
+
+</Project>
