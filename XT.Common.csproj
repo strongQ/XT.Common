@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Copyright>hihifun</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>1、包含SignalR客户端
 2、包含一些扩展方法
 3、包含Http，使用如下
@@ -33,6 +34,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.1" />
+      <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
