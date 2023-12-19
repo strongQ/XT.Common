@@ -274,7 +274,7 @@ namespace XT.Common.Extensions
                 };
             }
             var responseAsString = await response.Content.ReadAsStringAsync();
-            var responseObject = JsonSerializer.Deserialize<AdminCodeResult<T>>(responseAsString);
+             var responseObject = responseAsString.ToObject<AdminCodeResult<T>>();
             // 没有权限
             if (responseObject.Code == 401 || responseObject.Code == 403)
             {
