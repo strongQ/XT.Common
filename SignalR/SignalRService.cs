@@ -13,9 +13,9 @@ using XT.Common.Models.SignalR;
 
 namespace XT.Common.SignalR
 {
-    public class SignalRService : ISignalRService
+    public class SignalRService : ISignalRService,IAsyncDisposable
     {
-        public static SignalRService Instance { get; private set; }
+        
 
         private User _user;
         private HubConnection connection;
@@ -23,12 +23,9 @@ namespace XT.Common.SignalR
         public event EventHandler<string> ConnectedEvent;
         public event EventHandler<InformModel> MessageEvent;
         public event EventHandler<RemoteLog> RemoteLogEvent;
-        private List<string> subcribles = new List<string>();
+       
 
-        public SignalRService()
-        {
-            Instance = this;
-        }
+      
         public bool IsConnected { get; set; }
         /// <summary>
         /// 连接SignalR服务
@@ -78,7 +75,7 @@ namespace XT.Common.SignalR
                         return Task.CompletedTask;
                     };
                 }
-                subcribles.Clear();
+               
                 var users = await connection.InvokeAsync<List<User>>("Login",
                        user);
 
@@ -127,7 +124,7 @@ namespace XT.Common.SignalR
 
                 IsConnected = false;
 
-                subcribles.Clear();
+                
 
                 await connection.StopAsync();
 
@@ -139,6 +136,7 @@ namespace XT.Common.SignalR
             }
             catch (Exception ex)
             {
+                ClosedEvent?.Invoke(connection, ex.Message);
                 return false;
             }
         }
@@ -155,70 +153,13 @@ namespace XT.Common.SignalR
             //await connection.StartAsync();
             // 目前不作处理，手动调用
             IsConnected = false;
-            subcribles.Clear();
+           
             ClosedEvent?.Invoke(connection, arg.Message);
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// 监听信息
-        /// </summary>
-        /// <returns></returns>
-        public bool ListenMessage()
-        {
-            try
-            {
-                if (subcribles.Contains("InformMessage"))
-                {
-                    return true;
-                }
-                if (connection == null || connection.State != HubConnectionState.Connected)
-                {
-                    return false;
-                }
-                if (MessageEvent == null) return false;
-
-                connection.On<InformModel>("InformMessage", (inform) =>
-                {
-                    MessageEvent?.Invoke(connection, inform);
-                });
-                subcribles.Add("InformMessage");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-        /// <summary>
-        /// 监听远程日志
-        /// </summary>
-        /// <returns></returns>
-        public bool ListenRemoteLog()
-        {
-            try
-            {
-                if (subcribles.Contains("ReadLog"))
-                {
-                    return true;
-                }
-                if (connection == null || connection.State != HubConnectionState.Connected)
-                {
-                    return false;
-                }
-                if (RemoteLogEvent == null) return false;
-                connection.On<RemoteLog>("ReadLog", (log) =>
-                {
-                    RemoteLogEvent?.Invoke(connection, log);
-                });
-                subcribles.Add("ReadLog");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
+       
+       
         /// <summary>
         /// 写日志
         /// </summary>
@@ -238,6 +179,7 @@ namespace XT.Common.SignalR
             }
             catch (Exception ex)
             {
+                ClosedEvent?.Invoke(connection, ex.Message);
                 return false;
             }
         }
@@ -261,8 +203,16 @@ namespace XT.Common.SignalR
             }
             catch (Exception ex)
             {
+                ClosedEvent?.Invoke(connection, ex.Message);
                 return false;
             }
+        }
+
+      
+
+        public async ValueTask DisposeAsync()
+        {
+            await StopServer();
         }
     }
 }

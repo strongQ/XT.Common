@@ -54,6 +54,7 @@ namespace XT.Common.WinServices
         public virtual async Task Stop()
         {
             StopBase();
+            await Task.CompletedTask;
         }
 
 

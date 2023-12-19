@@ -27,17 +27,7 @@ namespace XT.Common.Interfaces
         /// <returns></returns>
         Task<bool> StopServer();
 
-        /// <summary>
-        /// 监听信息
-        /// </summary>
-        /// <returns></returns>
-        bool ListenMessage();
-        /// <summary>
-        /// 监听远程日志
-        /// </summary>
-        /// <returns></returns>
-        bool ListenRemoteLog();
-
+      
 
         /// <summary>
         /// 写日志
