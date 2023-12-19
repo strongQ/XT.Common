@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using XT.Common.Extensions;
+using XT.Common.Converters;
 
 namespace XT.Common.Extensions
 {
@@ -518,6 +519,8 @@ namespace XT.Common.Extensions
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
 
             };
+             var time = new DateTimeParseConverter();
+             options.Converters.Add(time);
             return JsonSerializer.Serialize(obj, options);
         }
 
@@ -533,6 +536,8 @@ namespace XT.Common.Extensions
             {
                 PropertyNameCaseInsensitive = true
             };
+               var time = new DateTimeParseConverter();
+              options.Converters.Add(time);
             return JsonSerializer.Deserialize<T>(json, options);
         }
 

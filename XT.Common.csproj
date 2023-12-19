@@ -20,7 +20,7 @@
             client.BaseAddress = new Uri(_apiConfig.RemoteApiUrl);
             return client;
         }</Description>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <Authors>hihifun</Authors>
   </PropertyGroup>
 
