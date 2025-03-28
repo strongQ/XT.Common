@@ -6,6 +6,7 @@ using System.Text;
 using XT.Common.Attributes;
 using XT.Common.Dtos.Admin.Util;
 using XT.Common.Enums;
+using XT.Common.Interfaces;
 
 namespace XT.Common.Dtos.Admin.Org
 {
@@ -23,7 +24,7 @@ namespace XT.Common.Dtos.Admin.Org
         public string Code { get; set; }
     }
 
-    public class AddOrgInput : BaseIdInput
+    public class AddOrgInput : BaseIdInput,IRender
     {
         /// <summary>
         /// 租户Id
@@ -72,6 +73,7 @@ namespace XT.Common.Dtos.Admin.Org
         /// 机构子项
         /// </summary>
         public List<AddOrgInput> Children { get; set; }
+        public bool IsRender { get; set; }
     }
 
     public class UpdateOrgInput : AddOrgInput

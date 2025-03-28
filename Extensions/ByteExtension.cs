@@ -156,7 +156,7 @@ namespace XT.Common.Extensions
         public static int GetCount(this string source, string search)
         {
             int count = 0; //计数器
-            for (int i = 0; i < source.Length - search.Length; i++)
+            for (int i = 0; i <=source.Length - search.Length; i++)
             {
                 if (source.Substring(i, search.Length) == search)
                 {
