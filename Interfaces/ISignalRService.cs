@@ -35,5 +35,11 @@ namespace XT.Common.Interfaces
         /// <param name="log"></param>
         /// <returns></returns>
         Task<bool> WriteLog(RemoteLog log);
+        /// <summary>
+        /// 写信息
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        Task<bool> WriteMessage(InformModel log);
     }
 }
