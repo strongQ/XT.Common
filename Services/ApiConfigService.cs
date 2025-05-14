@@ -28,7 +28,7 @@ namespace XT.Common.Services
         public HttpClient CreateHttpClient()
         {
             var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(30);
+            client.Timeout = TimeSpan.FromSeconds(60);
             if (!string.IsNullOrEmpty(Token))
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
             client.BaseAddress = new Uri(RemoteApiUrl);
