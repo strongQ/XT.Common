@@ -3,6 +3,7 @@
 
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,12 @@ namespace XT.Common.SignalR
               .WithUrl($"{url}/MessageHub", options =>
               {
                   options.AccessTokenProvider = async () => await Task.FromResult($"{user.ID}*{user.Name}*{user.Type}");
-              }).WithAutomaticReconnect(new RetryPolicy())
+              }).AddJsonProtocol(options =>
+              {
+                  // 告诉SignalR使用我们AOT兼容的序列化上下文，而不是依赖反射
+                  options.PayloadSerializerOptions.TypeInfoResolver = SignalRJsonContext.Default;
+              })
+              .WithAutomaticReconnect(new RetryPolicy())
               .Build();
                     // 连接signalR
                     await connection.StartAsync();
