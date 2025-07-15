@@ -37,9 +37,9 @@ namespace XT.Common.Extensions
                     fileStream.Close();
                     return (T)data;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw ex;
+                    return null;
                 }
             }
             return null;
