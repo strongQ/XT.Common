@@ -18,6 +18,8 @@ namespace XT.Common.Services
         public string OtherUrl { get; set; }
         public string Token { get; set; }
 
+        public string RefreshToken { get; set; }
+
         public event EventHandler AuthorizationFailedEvent;
 
         public void AuthorizationFailedInvoke()

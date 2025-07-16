@@ -21,6 +21,10 @@ namespace XT.Common.Interfaces
         /// Token数据
         /// </summary>
         public string Token { get; set; }
+        /// <summary>
+        /// 刷新Token
+        /// </summary>
+        public string RefreshToken { get; set; }
 
         /// <summary>
         /// 触发验证失败的事件

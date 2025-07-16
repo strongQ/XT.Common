@@ -20,7 +20,7 @@
             client.BaseAddress = new Uri(_apiConfig.RemoteApiUrl);
             return client;
         }</Description>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Authors>hihifun</Authors>
   </PropertyGroup>
 
@@ -33,6 +33,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" />
     <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
       <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>

@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using XT.Common.Handlers;
 using XT.Common.Interfaces;
 using XT.Common.SignalR;
+using Microsoft.Extensions.Http;
 
 namespace XT.Common
 {
@@ -39,8 +41,18 @@ namespace XT.Common
         /// <returns></returns>
         public static IServiceCollection AddOriginHttpClient(this IServiceCollection services)
         {
-            return services.AddHttpClient();
+            services.AddTransient<AuthHeaderHandler>();
+            services.ConfigureHttpClientDefaults(builder =>
+            {
+                builder.AddHttpMessageHandler<AuthHeaderHandler>();
+                // 您也可以在这里设置一些全局默认值，如 Timeout
+                builder.SetHandlerLifetime(TimeSpan.FromMinutes(5)); // IHttpClientFactory 建议的设置
+                builder.ConfigureHttpClient(client => client.Timeout = TimeSpan.FromSeconds(30));
+            });
+            return services;
         }
+
+      
 
         //public static IServiceCollection AddGrpcChannelService(this IServiceCollection services)
         //{
