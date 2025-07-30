@@ -32,7 +32,7 @@ namespace XT.Common.Handlers
             // =======================================================
             var accessToken = _apiConfig.Token;
 
-            if (!string.IsNullOrEmpty(accessToken))
+            if (!string.IsNullOrEmpty(accessToken) && accessToken!= "invalid_token")
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -69,7 +69,7 @@ namespace XT.Common.Handlers
                  
                 }
 
-                if (!string.IsNullOrEmpty(newAccessToken))
+                if (!string.IsNullOrEmpty(newAccessToken) && newAccessToken!= "invalid_token")
                 {
                     _apiConfig.Token = newAccessToken;
                     _apiConfig.RefreshToken = newRefreshToken;

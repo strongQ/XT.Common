@@ -16,6 +16,7 @@ namespace XT.Common.Extensions
             try
             {
                 var jwtToken = handler.ReadJwtToken(token);
+            
                 var expClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type.Equals("exp"));
 
                 if (expClaim == null)
